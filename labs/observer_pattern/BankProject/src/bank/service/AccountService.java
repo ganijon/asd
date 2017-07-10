@@ -55,7 +55,6 @@ public class AccountService implements IAccountService {
         updateObservableState(account);
     }
 
-
     public void transferFunds(long fromAccountNumber, long toAccountNumber, double amount, String description) {
         Account fromAccount = accountDAO.loadAccount(fromAccountNumber);
         Account toAccount = accountDAO.loadAccount(toAccountNumber);
@@ -66,7 +65,6 @@ public class AccountService implements IAccountService {
         updateObservableState(fromAccount);
         updateObservableState(toAccount);
     }
-
 
     private void updateObservableState(Account account) {
         account.setState(new State(
