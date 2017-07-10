@@ -34,6 +34,8 @@ public class AccountService implements IAccountService {
         Account account = accountDAO.loadAccount(accountNumber);
         account.deposit(amount);
         accountDAO.updateAccount(account);
+
+        updateObservableState(account);
     }
 
     public Account getAccount(long accountNumber) {
@@ -49,6 +51,8 @@ public class AccountService implements IAccountService {
         Account account = accountDAO.loadAccount(accountNumber);
         account.withdraw(amount);
         accountDAO.updateAccount(account);
+
+        updateObservableState(account);
     }
 
 
@@ -58,5 +62,16 @@ public class AccountService implements IAccountService {
         fromAccount.transferFunds(toAccount, amount, description);
         accountDAO.updateAccount(fromAccount);
         accountDAO.updateAccount(toAccount);
+
+        updateObservableState(fromAccount);
+        updateObservableState(toAccount);
+    }
+
+
+    private void updateObservableState(Account account) {
+        account.setState(new State(
+                account.getAccountnumber(),
+                account.getCustomer().getName(),
+                account.getBalance()));
     }
 }

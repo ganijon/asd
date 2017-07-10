@@ -43,15 +43,11 @@ public class Account extends Observable {
     public void deposit(double amount) {
         AccountEntry entry = new AccountEntry(new Date(), amount, "deposit", "", "");
         entryList.add(entry);
-
-        updateObservableState();
     }
 
     public void withdraw(double amount) {
         AccountEntry entry = new AccountEntry(new Date(), -amount, "withdraw", "", "");
         entryList.add(entry);
-
-        updateObservableState();
     }
 
     public void transferFunds(Account toAccount, double amount, String description) {
@@ -60,8 +56,6 @@ public class Account extends Observable {
         entryList.add(fromEntry);
         toAccount.addEntry(toEntry);
         toAccount.deposit(amount);
-
-        updateObservableState();
     }
 
     private void addEntry(AccountEntry entry) {
@@ -81,7 +75,4 @@ public class Account extends Observable {
         notifyObservers();
     }
 
-    private void updateObservableState() {
-        setState(new State(accountnumber, customer.getName(), getBalance()));
-    }
 }
